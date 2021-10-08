@@ -1,0 +1,63 @@
+/* 	Constants used for the Traffic Signal project */
+signalname =   ParkwoodAndTennyson
+
+//	# of milliseconds = 1 second for simulation	
+timeunit	=					5
+//	# of cycles to run
+numcycles	=					100
+
+satrate     =                   1900
+
+// 	Green time for North Direction going straight in seconds
+north.straightgreentime	=	77
+// 	Yellow time for North Direction going straight in seconds
+north.straightyellowtime	=	4
+// 	Green time for North Direction going left in seconds
+north.leftgreentime		=    15
+// 	Yellow time for North Direction going left in seconds
+north.leftyellowtime		=	3
+// 	Stop time "time taken for traffic to clear intersection" for North Direction in seconds
+north.redtime			=	1.5
+// 	Vehicle straight entry rate in seconds for North Direction
+north.enterstraight		=   0.11
+// 	Vehicle left entry rate in seconds for North Direction
+north.enterleft			=   0.02
+// 	Vehicle exit rate (NOT saturation rate) exiting left in seconds for North Direction
+north.exitleft				=	1
+// 	Vehicle exit rate (NOT saturation rate) exiting straight in seconds for North Direction
+north.exitstraight			= 	3
+
+
+south.straightgreentime	=	77
+south.straightyellowtime	=	4
+south.leftgreentime		=	15
+south.leftyellowtime		=	3
+south.redtime			=	1.5
+south.enterstraight			=	0.3
+south.enterleft				=	0.058
+south.exitleft				=	1
+south.exitstraight			= 	3
+
+east.straightgreentime	=	35
+east.straightyellowtime	=	4
+east.leftgreentime		=	13
+east.leftyellowtime		=	3
+east.redtime			=	2
+east.enterstraight			=	0.11
+east.enterleft				=	0.04
+east.exitleft				=	2
+east.exitstraight			= 	3
+
+west.straightgreentime	=	35
+west.straightyellowtime	=	4
+west.leftgreentime		=	13
+west.leftyellowtime		=	3
+west.redtime			=	1.5
+west.enterstraight			=	0.09
+west.enterleft				=	0.01
+west.exitleft				=	1
+west.exitstraight			= 	3
+
+
+
+

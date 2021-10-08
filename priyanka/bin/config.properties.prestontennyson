@@ -1,0 +1,68 @@
+/* 	Constants used for the Traffic Signal project */
+
+//	# of milliseconds = 1 second for simulation	
+timeunit	=					5
+//	# of cycles to run
+numcycles	=					100
+
+// 	Green time for North Direction going straight in seconds
+north.straightgreentime		=	96
+// 	Yellow time for North Direction going straight in seconds
+north.straightyellowtime	=	4.5
+// 	Green time for North Direction going left in seconds
+north.leftgreentime			=	26.5
+// 	Yellow time for North Direction going left in seconds
+north.leftyellowtime		=	3
+// 	Stop time "time taken for traffic to clear intersection" for North Direction in seconds
+north.redtime				=	2
+// 	Vehicle entry rate in seconds for North Direction
+north.entercar				=	0.646
+// 	Vehicle exit rate (NOT saturation rate) exiting left in seconds for North Direction
+north.exitleft				=	1
+// 	Vehicle exit rate (NOT saturation rate) exiting straight in seconds for North Direction
+north.exitstraight			= 	1
+// 	Percentage of vehicles going right for North Direction
+north.goingright			=	2
+// 	Percentage of vehicles going Straight for North Direction
+north.goingstraight			=	79
+// 	Percentage of vehicles going Left for North Direction
+north.goingleft				=	19
+
+
+south.straightgreentime		=	80
+south.straightyellowtime	=	4.5
+south.leftgreentime			=	10.5
+south.leftyellowtime		=	3
+south.redtime				=	2
+south.entercar				=	.801
+south.exitleft				=	1.5
+south.exitstraight			= 	.88
+south.goingright			=	1
+south.goingstraight			=	82
+south.goingleft				=	17
+
+east.straightgreentime		=	15.5
+east.straightyellowtime		=	4
+east.leftgreentime			=   8.5
+east.leftyellowtime			=	3
+east.redtime				=	2
+east.entercar               =   0.059
+east.exitleft				=	1.5
+east.exitstraight			= 	.73
+east.goingright				=	41
+east.goingstraight			=	19
+east.goingleft				=	40
+
+west.straightgreentime		=	22.5
+west.straightyellowtime		=	4
+west.leftgreentime			=	15.5
+west.leftyellowtime			=	3
+west.redtime				=	2
+west.entercar				=	0.196
+west.exitleft				=	1.5
+west.exitstraight			= 	.92
+west.goingright				=	6
+west.goingstraight			=	74
+west.goingleft				=	20
+
+

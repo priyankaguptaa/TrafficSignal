@@ -1,0 +1,62 @@
+/* 	Constants used for the Traffic Signal project */
+signalname =   ParkAndPreston
+
+
+//	# of milliseconds = 1 second for simulation	
+timeunit	=					5
+//	# of cycles to run
+numcycles	=					100
+
+satrate     =                   1900
+
+// 	Green time for North Direction going straight in seconds
+north.straightgreentime		=	72.7
+// 	Yellow time for North Direction going straight in seconds
+north.straightyellowtime	=	4.3
+// 	Green time for North Direction going left in seconds
+north.leftgreentime			=	18.2
+// 	Yellow time for North Direction going left in seconds
+north.leftyellowtime		=	4.3
+// 	Stop time "time taken for traffic to clear intersection" for North Direction in seconds
+north.redtime				=	1.75
+// 	Vehicle straight entry rate in seconds for North Direction
+north.enterstraight			=   0.53
+// 	Vehicle left entry rate in seconds for North Direction
+north.enterleft				=   0.09
+// 	Vehicle exit rate (NOT saturation rate) exiting left in seconds for North Direction
+north.exitleft				=	2
+// 	Vehicle exit rate (NOT saturation rate) exiting straight in seconds for North Direction
+north.exitstraight			= 	3
+
+
+south.straightgreentime		=	73.7
+south.straightyellowtime	=	4.3
+south.leftgreentime			=	19.2
+south.leftyellowtime		=	4.3
+south.redtime				=	1.75
+south.enterstraight			=	0.65
+south.enterleft				=	0.06
+south.exitleft				=	2
+south.exitstraight			= 	3
+
+east.straightgreentime		=	28.8
+east.straightyellowtime		=	4
+east.leftgreentime			=   10.5
+east.leftyellowtime			=	3
+east.redtime				=	1.85
+east.enterstraight			=	0.2
+east.enterleft				=	0.04
+east.exitleft				=	2
+east.exitstraight			= 	3
+
+west.straightgreentime		=	34.8
+west.straightyellowtime		=	4
+west.leftgreentime			=	16.5
+west.leftyellowtime			=	3
+west.redtime				=	1.85
+west.enterstraight			=	0.28
+west.enterleft				=	0.08
+west.exitleft				=	2
+west.exitstraight			= 	3
+
+

@@ -1,0 +1,158 @@
+package com.priyanka.traffic;
+
+public class RunManager {
+	
+
+	
+	int totalCycles = new Integer(TrafficSignal.props.getProperty("numcycles"));
+	int[] leftGreenTimeArr = {1,2,3,4,6,10,15,20,25,30};
+	int[] redTimeArr = {0,1,2,3,4,5};
+	double[] enterExitRatio = {0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3};
+	int[] arr1;
+	int[] arr2;
+	int[] enterExit;
+	
+	String str1;
+	String str2;
+	
+	public void runOnce() {
+		singlerun();
+	}
+	
+	public void captureData(int type) {
+		TrafficSignal.debugLevel = 1;
+		int runNumber = 1;
+		double delay;
+		switch (type)		{
+			case 1: 
+				arr1 = redTimeArr;
+				arr2 = leftGreenTimeArr;
+				for (int i=0; i<arr1.length; i++) {
+					for (int j=0; j<arr2.length; j++) {
+						changeCycleAndRedTime(arr2[j],arr1[i]);
+						delay = singlerun();
+						TrafficSignal.print(1,"Run Number " + runNumber + str1 + str2 +  ", Delay: " + delay);
+						runNumber++;
+						
+					} 
+				}
+				break;
+			case 2:
+				for (int i=0; i<enterExitRatio.length; i++) {
+					entryAndExitRate(enterExitRatio[i]);
+					delay = singlerun();
+					TrafficSignal.print(1,"Run Number " + runNumber + str1 + str2 +  ", Delay: " + delay);
+					runNumber++;
+				}
+				break;			
+		}
+		
+		
+	}
+	
+	
+	public double singlerun() {
+
+		Constants.runTraffic = true;
+		SignalController sc = new SignalController();
+		sc.start();
+		int currentCycle = 0;
+		while (currentCycle  < totalCycles) {
+			currentCycle = Math.round(sc.numCycles/2);
+			try {
+				Thread.sleep(1);
+			} catch (Exception e) {TrafficSignal.print(3,"Exception in Single Run");}
+		}
+		TrafficSignal.print(3,"Initiating termination from SingleRun");
+		Constants.runTraffic = false;
+		try {
+			Thread.sleep(5000);
+		} catch (Exception e) {TrafficSignal.print(3,"Exception in Single Run");}
+		double delay = calculateAvgDelay(sc);
+		return delay;
+		
+	}
+
+	
+	
+	public void changeCycleAndRedTime(int leftGreen, int redTime) {
+		str2 = ", CycleTime: " + 2*(leftGreen*4 + 8 + redTime*2);
+		str1 = ", Red Time:" + redTime;
+		// we are going to fix straighGreen as leftGreen*3;
+		TrafficSignal.props.setProperty("north.leftgreentime",""+leftGreen);
+		TrafficSignal.props.setProperty("north.straightgreentime",""+leftGreen*3);
+		TrafficSignal.props.setProperty("north.redtime",""+redTime);
+		TrafficSignal.props.setProperty("south.leftgreentime",""+leftGreen);
+		TrafficSignal.props.setProperty("south.straightgreentime",""+leftGreen*3);
+		TrafficSignal.props.setProperty("south.redtime",""+redTime);
+		TrafficSignal.props.setProperty("east.leftgreentime",""+leftGreen);
+		TrafficSignal.props.setProperty("east.straightgreentime",""+leftGreen*3);
+		TrafficSignal.props.setProperty("east.redtime",""+redTime);
+		TrafficSignal.props.setProperty("west.leftgreentime",""+leftGreen);
+		TrafficSignal.props.setProperty("west.straightgreentime",""+leftGreen*3);
+		TrafficSignal.props.setProperty("west.redtime",""+redTime);
+		
+	}
+	
+	public void entryAndExitRate(double ratio) {
+		// we are assuming 3 straight and 1 left - so exitRateStraight = 3*exitRateLeft
+		int entry = 0;
+		int exit = 0;
+		enterExit = getEnterExit("north");
+		entry = enterExit[0]/40*((int)(ratio*10));
+		exit = enterExit[1]*1000/40;
+		TrafficSignal.print(1,"Enter " + entry + ", Exit " + exit);
+		TrafficSignal.props.setProperty("north.entercar",""+entry);
+		TrafficSignal.props.setProperty("north.exitstraight",""+exit*3);
+		TrafficSignal.props.setProperty("north.exitleft",""+exit);
+		enterExit = getEnterExit("south");
+		entry = enterExit[0]/40*((int)(ratio*10));
+		exit = enterExit[1]*1000/40;
+		TrafficSignal.props.setProperty("south.entercar",""+entry);
+		TrafficSignal.props.setProperty("south.exitstraight",""+exit*3);
+		TrafficSignal.props.setProperty("south.exitleft",""+exit);
+		enterExit = getEnterExit("east");
+		entry = enterExit[0]/40*((int)(ratio*10));
+		exit = enterExit[1]*1000/40;
+		TrafficSignal.props.setProperty("east.entercar",""+entry);
+		TrafficSignal.props.setProperty("east.exitstraight",""+exit*3);
+		TrafficSignal.props.setProperty("east.exitleft",""+exit);
+		enterExit = getEnterExit("west");
+		entry = enterExit[0]/40*((int)(ratio*10));
+		exit = enterExit[1]*1000/40;
+		TrafficSignal.props.setProperty("west.entercar",""+entry);
+		TrafficSignal.props.setProperty("west.exitstraight",""+exit*3);
+		TrafficSignal.props.setProperty("west.exitleft",""+exit);
+		str1 = ", Ratio: " + String.format("%.2f", ratio)+ ", Entry Rate: " + entry/entry;
+		str2 = ", Exit Rate - Left: " +  String.format("%.2f", ((double)exit)/entry) + ", Straight: " + String.format("%.2f", ((double)exit)*3/entry);
+		
+	}
+	
+	double calculateAvgDelay(SignalController sc) {
+		int len1 = sc.northTC.cars.size();
+		int len2 = sc.southTC.cars.size();
+		int len3 = sc.eastTC.cars.size();
+		int len4 = sc.westTC.cars.size();
+		
+		return  (sc.northTC.calculateDelay()*len1 + sc.southTC.calculateDelay()*len1 + sc.eastTC.calculateDelay()*len1 + sc.westTC.calculateDelay()*len1)/(len1+len2+len3+len4);
+		
+	}
+	
+	int[] getEnterExit(String direction) {
+		int[] arr = {0,0};
+		int leftTime = getIntegerProperty(direction + ".leftgreentime") +  getIntegerProperty(direction + ".leftyellowtime");
+		int straightTime = getIntegerProperty(direction + ".straightgreentime") +  getIntegerProperty(direction + ".straightyellowtime");
+		int stopTime = getIntegerProperty(direction + ".redtime");
+		int pctRight = getIntegerProperty(direction + ".goingright");
+		arr[0] = (leftTime + straightTime + 2*stopTime)*2*(100-pctRight);
+		arr[1] = leftTime + 3*straightTime;		
+		return arr;
+	}
+	
+	int getIntegerProperty(String str) {
+		return Integer.parseInt(TrafficSignal.props.getProperty(str)) ;		
+	}
+	
+
+
+}

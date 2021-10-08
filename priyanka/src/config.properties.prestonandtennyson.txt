@@ -1,0 +1,63 @@
+/* 	Constants used for the Traffic Signal project */
+
+signalname =   TennysonAndPreston
+//	# of milliseconds = 1 second for simulation	
+timeunit	=					5
+//	# of cycles to run
+numcycles	=					100
+
+satrate     =                   1900
+
+// 	Green time for North Direction going straight in seconds
+north.straightgreentime		=	96
+// 	Yellow time for North Direction going straight in seconds
+north.straightyellowtime	=	4.5
+// 	Green time for North Direction going left in seconds
+north.leftgreentime		=       26.5
+// 	Yellow time for North Direction going left in seconds
+north.leftyellowtime		=	3
+// 	Stop time "time taken for traffic to clear intersection" for North Direction in seconds
+north.redtime			=	2
+// 	Vehicle straight entry rate in seconds for North Direction
+north.enterstraight		=   0.41
+// 	Vehicle left entry rate in seconds for North Direction
+north.enterleft			=   0.1
+// 	Number of lanes for North Direction
+north.exitleft				=	2
+// 	Number of lanes for North Direction
+north.exitstraight			= 	3
+
+
+south.straightgreentime		=	80
+south.straightyellowtime	=	4.5
+south.leftgreentime		=	10.5
+south.leftyellowtime		=	3
+south.redtime			=	2
+south.enterstraight			=	0.6
+south.enterleft				=	0.01
+south.exitleft				=	1
+south.exitstraight			= 	3
+
+east.straightgreentime		=	22.5
+east.straightyellowtime		=	4
+east.leftgreentime		=	15.5
+east.leftyellowtime		=	3
+east.redtime			=	2
+east.enterstraight			=	0.01
+east.enterleft				=	0.02
+east.exitleft				=	2
+east.exitstraight			= 	2
+
+west.straightgreentime		=	15.5
+west.straightyellowtime		=	4
+west.leftgreentime		=	8.5
+west.leftyellowtime		=	3
+west.redtime			=	2
+west.enterstraight			=	0.11
+west.enterleft				=	0.04
+west.exitleft				=	2
+west.exitstraight			= 	2
+
+
+
+
