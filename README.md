@@ -1,2 +1,2 @@
 # TrafficSignal
- Stochastic Monte CarloSimulation for Optimization of Traffic Lights
+ Stochastic Monte Carlo Simulation for Optimization of Traffic Lights
